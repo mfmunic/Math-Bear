@@ -1,0 +1,41 @@
+<h1>Create New Session</h1>
+
+<%= form_with(model: @session, local: true) do |f| %>
+  <div class="mb-3">
+    <%= f.label :session_type, "Type", class: "form-label" %>
+    <%= f.select :session_type,
+          options_for_select([["Timed", "timed"]], @session.session_type),
+          {},
+          class: "form-select" %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :max_input, "Maximum Number", class: "form-label" %>
+    <%= f.number_field :max_input,
+          class: "form-control",
+          min: 1 %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :min_input, "Minimum Number", class: "form-label" %>
+    <%= f.number_field :min_input,
+          class: "form-control",
+          min: 0 %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :time_minutes, "Minutes", class: "form-label" %>
+    <%= f.number_field :time_minutes,
+          class: "form-control",
+          min: 1 %>
+  </div>
+
+  <div class="form-check mb-3">
+    <%= f.check_box :addition, class: "form-check-input" %>
+    <%= f.label :addition, "Include Addition", class: "form-check-label" %>
+  </div>
+
+  <div>
+    <%= f.submit class: "btn btn-primary" %>
+  </div>
+<% end %>
