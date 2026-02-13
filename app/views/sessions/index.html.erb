@@ -1,0 +1,51 @@
+<h1 class="text-center">All Sessions</h1>
+
+<div class="row ms-5">
+    <% @sessions.each do |session| %>
+        <div class="col-md-2">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                <h5 class="card-title">
+                    <%= session.session_type.capitalize %> Session
+                </h5>
+                <p class="card-text">
+                    <strong>Min Input:</strong> <%= session.min_input %><br>
+                    <strong>Max Input:</strong> <%= session.max_input %><br>
+                    <strong>Minutes:</strong> <%= session.time_minutes %><br>
+                </p>
+                <hr>
+                <p class="card-text">
+                    <strong>Operations:</strong><br>
+                    Addition: <%= session.addition ? "Yes" : "No" %><br>
+                    Subtraction: <%= session.subtraction ? "Yes" : "No" %><br>
+                    Multiplication: <%= session.multiplication ? "Yes" : "No" %><br>
+                    Division: <%= session.division ? "Yes" : "No" %>
+                </p>
+            </div>
+            <div class="card-footer" style="display: flex; justify-content: space-between">
+                <div>
+                    <%# TODO - Make this a Run Session %>
+                    <%= link_to "View", session_path(session), class: "btn btn-sm btn-primary" %>
+                    <%# <%= link_to "Edit", edit_session_path(session), class: "btn btn-sm btn-secondary" %>
+                </div>
+                <%= button_to "Delete",
+                    session_path(session),
+                    method: :delete,
+                    class: "btn btn-sm btn-danger",
+                    data: { turbo_confirm: "Are you sure?" } %>
+                </div>
+            </div>
+        </div>
+    <% end %>
+    <%= link_to new_session_path, class: "col-md-2 text-decoration-none" do %>
+        <div class="card border-2 border-secondary text-center h-100 d-flex justify-content-center align-items-center"
+            style="min-height: 200px; border-style: dashed;">
+            <div>
+                <div style="font-size: 3rem; line-height: 1;">+</div>
+                <div class="mt-2 fw-semibold text-dark">
+                    Create Session
+                </div>
+            </div>
+        </div>
+  <% end %>
+</div>
