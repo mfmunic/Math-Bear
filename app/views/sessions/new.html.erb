@@ -5,34 +5,35 @@
         padding: 24px;
         border-radius: 16px;
         border: 8px solid green;">
-        <%= form_with(model: @session, local: true) do |f| %>
+        <%= form_with(model: @session, local: true, data: { controller: "session-type" }) do |f| %>
         <div class="mb-3">
             <%= f.label :session_type, "Type", class: "form-label" %>
             <%= f.select :session_type,
-                options_for_select([["Timed", "timed"], ['Count', 'count']], @session.session_type),
+                options_for_select([["Timed", "timed"], ["Count", "count"]], @session.session_type),
                 {},
-                class: "form-select" %>
+                class: "form-select",
+                data: { action: "change->session-type#toggle", "session-type-target": "select" }
+            %>
         </div>
 
         <div class="mb-3">
             <%= f.label :max_input, "Maximum Number", class: "form-label" %>
-            <%= f.number_field :max_input,
-                class: "form-control",
-                min: 1 %>
+            <%= f.number_field :max_input, class: "form-control", min: 1 %>
         </div>
 
         <div class="mb-3">
             <%= f.label :min_input, "Minimum Number", class: "form-label" %>
-            <%= f.number_field :min_input,
-                class: "form-control",
-                min: 0 %>
+            <%= f.number_field :min_input, class: "form-control", min: 0 %>
         </div>
 
-        <div class="mb-3">
+        <div class="mb-3 d-none" data-session-type-target="timeField">
             <%= f.label :time_minutes, "Minutes", class: "form-label" %>
-            <%= f.number_field :time_minutes,
-                class: "form-control",
-                min: 1 %>
+            <%= f.number_field :time_minutes, class: "form-control" %>
+        </div>
+
+        <div class="mb-3" data-session-type-target="countField">
+            <%= f.label :card_count_total, "Card Count Total", class: "form-label" %>
+            <%= f.number_field :card_count_total, class: "form-control" %>
         </div>
 
         <div class="form-check mb-3">
@@ -51,8 +52,8 @@
         </div>
 
         <div class="form-check mb-3">
-            <%= f.check_box :subtraction, class: "form-check-input" %>
-            <%= f.label :subtraction, "Include Subtraction", class: "form-check-label" %>
+            <%= f.check_box :division, class: "form-check-input" %>
+            <%= f.label :division, "Include Division", class: "form-check-label" %>
         </div>
 
         <div class="d-flex" style="justify-content: space-between">
